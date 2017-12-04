@@ -1,0 +1,745 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /*font-display: auto;*/
+    /*font-display: block;*/
+    /*font-display: swap;*/
+    /*font-display: fallback;*/
+    font-display: optional;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: bottom;
+    border: 0;
+}
+
+/*img*/.pixelated {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+/*------------------------------------*\
+    $FONT
+\*------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-weight: inherit;
+    margin-bottom: .5rem;
+}
+
+h1 a, 
+h2 a, 
+h3 a, 
+h4 a, 
+h5 a, 
+h6 a {
+    text-decoration: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    color: inherit;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+/*------------------------------------*\
+    $SET
+\*------------------------------------*/
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+/* Input Block */
+input[type=text],
+input[type=password],
+/* html 5 */
+input[type=color],
+input[type=date],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=range],
+input[type=search],
+input[type=tel],
+input[type=time],
+input[type=url],
+input[type=week],
+select,
+textarea {
+
+}
+
+/* Input Button */
+input[type=submit],
+input[type=reset] {}
+
+/* Input inline*/
+input[type=checkbox],
+input[type=radio] {
+}
+
+/*------------------------------------*\
+    $NAV
+\*------------------------------------*/
+.nav,
+.subnav {
+    margin: 0;
+    padding: 0;
+}
+
+.nav__item,
+.nav li {
+    list-style-type: none;
+    white-space: nowrap;
+}
+
+.nav__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.block {
+    display: block;
+}
+
+/*------------------------------------------------------------------------*\
+
+    $TEMPLATE
+
+\*------------------------------------------------------------------------*/
+
+/*------------------------------------*\
+    $TEMPLATE TOPBAR GENERAL
+\*------------------------------------*/
+.body[class*="--topbar"] {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.body[class*="--topbar"] main {
+    flex-grow: 1;
+}
+
+.body[class*="--topbar"] .header__content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*------------------------------------*\
+    $TEMPLATE SIDEBAR GENERAL
+\*------------------------------------*/
+.body[class*="--sidebar"] {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    min-height: 100vh;
+}
+
+/* activate to test layout */
+.body[class*="--sidebar"],
+.body[class*="--sidebar"] header,
+.body[class*="--sidebar"] main,
+.body[class*="--sidebar"] footer {
+    /*border: solid;*/
+}
+
+.body[class*="--sidebar"] header {
+    position: relative;
+    z-index: 10000;
+}
+
+/*------------------------------------*\
+    $TEMPLATE SIDEBAR
+\*------------------------------------*/
+.body--sidebar {
+    grid-template-areas: 
+    "header main"
+    "header footer";
+}
+
+.body--sidebar header {
+    grid-area: header;
+}
+
+.body--sidebar .header__content {
+    position: sticky;
+    top: 0;
+}
+
+.body--sidebar footer {
+    grid-area: footer;
+}
+/*------------------------------------*\
+    $TEMPLATE SIDEBAR 2
+\*------------------------------------*/
+.body--sidebar-2 {
+    grid-template-areas: 
+        "header main"
+        "footer footer";
+}
+
+.body--sidebar-2 header {
+    grid-area: header;
+}
+
+.body--sidebar-2 .header__content {
+    position: sticky;
+    top: 0;
+}
+
+.body--sidebar-2 footer {
+    grid-area: footer;
+}
+
+/*------------------------------------*\
+    $TEMPLATE SIDEBAR 3
+\*------------------------------------*/
+.body--sidebar-3 main {
+    grid-column: 2 / 2;
+    grid-row: span 2;
+}
+
+.body--sidebar-3 header {
+    grid-column: 1 / 1;
+}
+
+.body--sidebar-3 .header__content {
+    position: sticky;
+    top: 0;
+}
+
+.body--sidebar-3 footer {
+    grid-column: 1 / 1;
+
+/*    position: sticky;
+    bottom: 0;*/
+}
+
+/*------------------------------------*\
+    $NAV DROPDOWN
+\*------------------------------------*/
+
+/* GENERAL*/
+nav /*ul*/.nav ul{
+    display: none;
+    position: absolute;
+}
+
+nav /*ul*/.nav /*li*/.nav__item {
+    position: relative;
+}
+
+
+nav .nav .nav__item:hover ul,
+nav .nav .nav__item:focus ul,
+nav .nav .nav__item:active ul {
+    display: block;
+}
+
+/* TOPBAR DROPDOWN*/
+.body[class*="--topbar"] nav .nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.body[class*="--topbar"] nav .nav ul {
+    top: 100%;
+}
+
+/* SIDEBAR DROPDOWN */
+.body[class*="--sidebar"] nav .nav ul{
+    top: 0;
+    left: 100%;
+}
+
+/*------------------------------------*\
+    $IMAGE
+\*------------------------------------*/
+.img-fullwidth {
+    max-width: none;
+    width: 100%;
+}
+
+@supports (object-fit: cover) {
+    .img-cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-width: none;
+    }
+
+    /* top */
+    .img-cover--top-left {
+        object-position: 25% 25%;
+    }
+
+    .img-cover--top {
+        object-position: 50% 25%;
+    }
+
+    .img-cover--top-right {
+        object-position: 75% 25%;
+    }
+
+    /* middle */
+    .img-cover--left {
+        object-position: 25% 50%;
+    }
+
+    .img-cover--right {
+        object-position: 75% 50%;
+    }
+
+    /* bottom */
+    .img-cover--bottom-left {
+        object-position: 25% 75%;
+    }
+
+    .img-cover--bottom {
+        object-position: 50% 75%;
+    }
+
+    .img-cover--bottom-right {
+        object-position: 75% 75%;
+    }
+
+    /* EDGE */
+    /* top */
+    .img-cover--top-left-max {
+        object-position: 0% 0%;
+    }
+
+    .img-cover--top-max {
+        object-position: 50% 0%;
+    }
+
+    .img-cover--top-right-max {
+        object-position: 100% 0%;
+    }
+
+    /* middle */
+    .img-cover--left-max {
+        object-position: 0% 50%;
+    }
+
+    .img-cover--right-max {
+        object-position: 100% 50%;
+    }
+
+    /* bottom */
+    .img-cover--bottom-left-max {
+        object-position: 0% 100%;
+    }
+
+    .img-cover--bottom-max {
+        object-position: 50% 100%;
+    }
+
+    .img-cover--bottom-right-max {
+        object-position: 100% 100%;
+    }
+}
+
+.img-absolute {
+    position: relative;
+    overflow: hidden;
+}
+
+.img-absolute > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-height: 101%;
+    min-width: 101%;
+    transform: translate(-50%, -50%);
+    max-width: none;
+}
+
+.img-absolute--max-width > img {
+    max-width: 100%;
+}
+
+/* top */
+.img-absolute--top-left > img {
+    top: 25%;
+    left: 25%;
+    transform: translate(-25%, -25%);
+}
+
+.img-absolute--top > img {
+    top: 25%;
+    transform: translate(-50%, -25%);
+}
+
+.img-absolute--top-right > img {
+    top: 25%;
+    left: 75%;
+    transform: translate(-75%, -25%);
+}
+
+.img-absolute--top-right-max > img {
+    top: 0%;
+    left: 100%;
+    transform: translate(-100%, -0%);
+}
+
+/* middle */
+.img-absolute--left > img {
+    left: 25%;
+    transform: translate(-25%, -50%);
+}
+
+.img-absolute--right > img {
+    left: 75%;
+    transform: translate(-75%, -50%);
+}
+
+/* bottom */
+.img-absolute--bottom-left > img {
+    top: 75%;
+    left: 25%;
+    transform: translate(-25%, -75%);
+}
+
+.img-absolute--bottom > img {
+    top: 75%;
+    transform: translate(-50%, -75%);
+}
+
+.img-absolute--bottom-right > img {
+    top: 75%;
+    left: 75%;
+    transform: translate(-75%, -75%);
+}
+
+/*------------------------------------*\
+    $GLOBAL CLASSES
+\*------------------------------------*/
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.img--cover {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*------------------------------------*\
+    $GLOBAL TYPOGRAPHY
+\*------------------------------------*/
+.uppercase {
+    text-transform: uppercase !important;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+/* TEXT ALIGN */
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+/* FONT WEIGHT */
+.thin {
+    font-weight: 100 !important;
+}
+
+/* also thin */
+.extra-light,
+.ultra-light,
+.extralight,
+.ultralight {
+    font-weight: 200 !important;
+}
+
+/* book */
+.light {
+    font-weight: 300 !important;
+}
+
+/* or regular */
+.normal,
+.regular {
+    font-weight: 400 !important;
+}
+
+.medium {
+    font-weight: 500 !important;
+}
+
+/* also demibold */
+.semi-bold,
+.demi-bold,
+.semibold, 
+.demibold {
+    font-weight: 600 !important;
+}
+
+.bold {
+    font-weight: 700 !important;
+}
+
+.extra-bold,
+.ultra-bold {
+    font-weight: 800 !important;
+}
+
+/* also black */
+.heavy {
+    font-weight: 900 !important;
+}
+
+/* END FONT STYLE */
+
+/*------------------------------------*\
+    $GUTTER
+\*------------------------------------*/
+.gutter-half {
+    padding: calc(1rem * .5);
+}
+
+.gutter {
+    padding: 1rem;
+}
+
+.gutter-2 {
+    padding: calc(1rem * 2);
+}
+
+.gutter-3 {
+    padding: calc(1rem * 3);
+}
+
+.gutter-4 {
+    padding: calc(1rem * 4);
+}
+
+/*------------------------------------*\
+    $GUTTER TOP
+\*------------------------------------*/
+.gutter-top-third {
+    padding-top: calc(1rem * .334);
+}
+
+.gutter-bottom-third {
+    padding-bottom: calc(1rem * .334);
+}
+
+.gutter-left-third {
+    padding-left: calc(1rem * .334);
+}
+
+.gutter-right-third {
+    padding-right: calc(1rem * .334);
+}
+
+/* HALF */
+.gutter-top-half {
+    padding-top: calc(1rem * .5);
+}
+
+.gutter-bottom-half {
+    padding-bottom: calc(1rem * .5);
+}
+
+.gutter-left-half {
+    padding-left: calc(1rem * .5);
+}
+
+.gutter-right-half {
+    padding-right: calc(1rem * .5);
+}
+
+/* NORMAL */
+.gutter-top {
+    padding-top: 1rem;
+}
+
+.gutter-bottom {
+    padding-bottom: 1rem;
+}
+
+.gutter-left {
+    padding-left: 1rem;
+}
+
+.gutter-right {
+    padding-right: 1rem;
+}
+
+/* PADDING 2 */
+.gutter-top-2 {
+    padding-top: calc(1rem * 2);
+}
+
+.gutter-bottom-2 {
+    padding-bottom: calc(1rem * 2);
+}
+
+.gutter-left-2 {
+    padding-left: calc(1rem * 2);
+}
+
+.gutter-right-2 {
+    padding-right: calc(1rem * 2);
+}
+
+/* PADDING 3 */
+.gutter-top-3 {
+    padding-top: calc(1rem * 3);
+}
+
+.gutter-bottom-3 {
+    padding-bottom: calc(1rem * 3);
+}
+
+.gutter-left-3 {
+    padding-left: calc(1rem * 3);
+}
+
+.gutter-right-3 {
+    padding-right: calc(1rem * 3);
+}
+
+/* PADDING 4 */
+.gutter-top-4 {
+    padding-top: calc(1rem * 4);
+}
+
+.gutter-bottom-4 {
+    padding-bottom: calc(1rem * 4);
+}
+
+.gutter-left-4 {
+    padding-left: calc(1rem * 4);
+}
+
+.gutter-right-4 {
+    padding-right: calc(1rem * 4);
+}
+
+/*------------------------------------*\
+    $FLEXBOX LAYOUT
+\*------------------------------------*/
+.flex-middle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.flex-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.flex-vertical-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*------------------------------------*\
+    $FLEXBOX ITEMS
+\*------------------------------------*/
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+/*------------------------------------*\
+    $QUOTE
+\*------------------------------------*/
+.pullquote p:first-of-type:before {
+    font-family: Georgia,serif !important;
+    content: open-quote;
+}
+
+.pullquote p:first-of-type:after {
+    font-family: Georgia,serif !important;
+    content: close-quote;
+}
+
+.pullquote p {
+    quotes: "\201C" "\201D";
+}
+
+
+/*------------------------------------*\
+    $HEIGHT
+\*------------------------------------*/
+.height-viewport {
+    height: 100%;
+    min-height: 100vh;
+}
+
+.height-100 {
+    height: 100%;
+}
+
+.minheight-100 {
+    min-height: 100%;
+}
+
+/*------------------------------------*\
+    $POSITION
+\*------------------------------------*/
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+/*------------------------------------*\
+    $HEADER
+\*------------------------------------*/
+.header--absolute {
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    right: 0;
+}
