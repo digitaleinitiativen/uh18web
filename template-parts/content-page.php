@@ -15,29 +15,35 @@
 
 ?>
 
-	<?php include(locate_template('partials/hero.php')); ?>
+<?php include(locate_template('partials/hero.php')); ?>
 
-	<!-- SECTIONS -->
-	<?php 
-		if (file_exists(get_template_directory() . '/acf-local-file.php')) {
-			require_once(get_template_directory() . '/acf-local-file.php');
-		}
+<?php if ( !empty(get_the_content()) ) : ?>
+	<section class="section  section--left  lc-2">
+		<?php echo the_content(); ?>
+	</section>
+<?php endif; ?>
 
-		if ( !empty($config) ) {
-			$acf_post_meta = get_all_custom_field_meta( get_the_ID(), $config );
-		}
+<!-- SECTIONS -->
+<?php 
+	if (file_exists(get_template_directory() . '/acf-local-file.php')) {
+		require_once(get_template_directory() . '/acf-local-file.php');
+	}
 
-		if ( !empty($acf_post_meta) ) {
-			foreach ($acf_post_meta as $key => $meta) {
-				// IF ARRAY
-				if ( is_array($meta) ) {
-					foreach ($meta as $layout) {
-						if ((!empty($layout['acf_fc_layout'])) && (file_exists(get_template_directory() . '/partials/'.$layout['acf_fc_layout'].'.php'))) {
+	if ( !empty($config) ) {
+		$acf_post_meta = get_all_custom_field_meta( get_the_ID(), $config );
+	}
 
-							include(locate_template('partials/'.$layout['acf_fc_layout'].'.php'));
-						}
+	if ( !empty($acf_post_meta) ) {
+		foreach ($acf_post_meta as $key => $meta) {
+			// IF ARRAY
+			if ( is_array($meta) ) {
+				foreach ($meta as $layout) {
+					if ((!empty($layout['acf_fc_layout'])) && (file_exists(get_template_directory() . '/partials/'.$layout['acf_fc_layout'].'.php'))) {
+
+						include(locate_template('partials/'.$layout['acf_fc_layout'].'.php'));
 					}
 				}
 			}
 		}
-	?>
+	}
+?>

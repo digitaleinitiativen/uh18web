@@ -17,6 +17,16 @@
 	}
 
 	$acf_option_values = get_all_custom_field_meta( 'option', $config ); 
+
+
+	$field_group_json_2 = get_acf_json_by_name('sponsors');
+	$field_group_file_2 = get_stylesheet_directory() . "/acf-json/{$field_group_json_2}";
+	if (file_exists($field_group_file_2)) {
+	    $field_group_array_2 = json_decode( file_get_contents( $field_group_file_2 ), true );
+	    $config_2 = $field_group_array_2;
+	}
+
+	$acf_option_values_2 = get_all_custom_field_meta( 'option', $config_2 ); 
 ?>
 
 	</main>
@@ -28,6 +38,31 @@
 
 		<div class="sponsors">
 			<?php foreach ($acf_option_values as $key => $options) : ?>
+				<?php foreach ($options as $key => $option) : ?>
+					<?php 
+						$imageId = $option['logo'] ?? '';
+						$image = $imageId ? wp_get_attachment_image( $imageId, 'original', false, ["class" => ""] ) : '';
+						$url = $option['link']['url'] ?? '';
+						$target = $option['link']['target'] ?? '';
+						$title = $option['link']['title'] ?? '';
+					?>
+
+					<?php if (!empty($url)) : ?>
+						<a href="<?php echo $url; ?>" target="<?php echo $target; ?>">
+					<?php endif; ?>
+
+						<?php echo $image; ?>
+
+					<?php if (!empty($url)) : ?>
+					</a>
+					<?php endif; ?>
+
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</div>
+
+		<div class="sponsors  sponsors--2">
+			<?php foreach ($acf_option_values_2 as $key => $options) : ?>
 				<?php foreach ($options as $key => $option) : ?>
 					<?php 
 						$imageId = $option['logo'] ?? '';

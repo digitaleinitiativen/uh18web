@@ -4,9 +4,24 @@
     $url = $layout['call2action']['url'] ?? '';
     $target = $layout['call2action']['target'] ?? '';
     $button = $layout['call2action']['title'] ?? '';
+
+    $style = $layout['style'] ?? '';
+    $stylecolor = '';
+
+    switch ($style) {
+        case 'gelb':
+            $stylecolor = 'section--bg  clip';
+            break;
+        case 'blau':
+            $stylecolor = 'section--bg2  clip';
+            break;
+        default:
+            $stylecolor = '';
+            break;
+    }
 ?>
 
-<div class="section--bg2  clip">
+<div class="<?php echo $stylecolor; ?>">
     <section class="section lc">
         <div class="lc-2">
 

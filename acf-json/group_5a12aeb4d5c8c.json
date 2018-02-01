@@ -83,9 +83,9 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "page_template",
                 "operator": "==",
-                "value": "page"
+                "value": "page-home.php"
             }
         ]
     ],
@@ -99,5 +99,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1511173979
+    "modified": 1515837186
 }

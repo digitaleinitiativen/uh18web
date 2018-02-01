@@ -128,7 +128,11 @@ function uh18_scripts() {
 	wp_enqueue_style( 'uh18-style-custom', get_template_directory_uri() . '/css/min/uh18.css' );
     // wp_enqueue_style( 'uh18-style-custom', get_template_directory_uri() . '/css/theme-uh18.css' );
 
-	wp_enqueue_script( 'font', get_template_directory_uri() . '/js/font.js', array('jquery'), '20151215', false );
+	wp_enqueue_script( 'font', get_template_directory_uri() . '/js/font.js', array('jquery'), '20180115', false );
+
+    wp_enqueue_script( 'fontawesome' , 'https://use.fontawesome.com/97c340fa77.js', '20180115', false );
+
+    
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -201,6 +205,13 @@ if( function_exists('acf_add_options_page') ) {
 		'menu_slug' 	=> 'partner',
 		'capability' 	=> 'edit_posts'
 	));
+
+    $option_page = acf_add_options_page(array(
+        'page_title'    => 'Sponsors',
+        'menu_title'    => 'Sponsoren',
+        'menu_slug'     => 'sponsors',
+        'capability'    => 'edit_posts'
+    ));
 }
 
 /**
@@ -231,6 +242,7 @@ function get_acf_json_by_name( string $field_group_name ) {
         'home' => 'group_5a1294f25b550.json',
         'partner'  => 'group_5a129bdd97333.json',
         'hero' => 'group_5a12aeb4d5c8c.json',
+        'sponsors' => 'group_5a60490f84fc9.json',
         // Add more field_group_name => file_name pairs here.
     ];
     if ( ! isset( $field_group_lookup[ $field_group_name ] ) ) {

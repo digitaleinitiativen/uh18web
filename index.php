@@ -14,42 +14,64 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+	<?php include(locate_template('partials/hero.php')); ?>
 
+
+	<!-- MEDIUM FEED -->
+	<div class="section  section--left  lc">
 		<?php
-		if ( have_posts() ) :
+		$url = "https://medium.com/feed/voralberg-digital/tagged/uh18";
 
-			if ( is_home() && ! is_front_page() ) : ?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
+		$invalidurl = false;
+		if(@simplexml_load_file($url)){
+			$feeds = simplexml_load_file($url);
+		}else{
+			$invalidurl = true;
+			echo "<h2>Invalid RSS feed URL. DAMN</h2>";
+		}
 
-			<?php
-			endif;
+		$i=0;
+		if(!empty($feeds)){
 
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+			$site = $feeds->channel->title;
+			$sitelink = $feeds->channel->link;
 
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_format() );
+			foreach ($feeds->channel->item as $item) {
+				$title = $item->title;
+				$link = $item->link;
+				$description = $item->children("content", true);
+				$postDate = $item->pubDate;
+				$pubDate = date('D, d M Y',strtotime($postDate));
+				$author = $item->children("dc", true);
 
-			endwhile;
 
-			the_posts_navigation();
+				// if($i>=5) break;
+				?>
+				<div class="feed">
+					<div class="feed__head">
+						<div class="feed__subtitle  h8"><?php echo $pubDate; ?> | <?php echo $author; ?></div>
+						<h2><a class="feed__title" href="<?php echo $link; ?>" target="_blank"><?php echo $title; ?></a></h2>
+					</div>
+					<div class="feed__description">
+						<?php echo implode(' ', array_slice(explode(' ', $description), 0, 20)) . "..."; ?> <a target="_blank" href="<?php echo $link; ?>">weiterlesen</a>
+					</div>
 
-		else :
+					<div class="feed__seperator">
+						<img src="<?php echo get_template_directory_uri() . '/img/wave.svg'; ?>" alt="wave">
+					</div>
+				</div>
 
-			get_template_part( 'template-parts/content', 'none' );
+				<?php
+				$i++;
+			}
+		} else{
+			if(!$invalidurl){
+				echo "<h2>No item found</h2>";
+			}
+		}
+		?>
 
-		endif; ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+	</div>
 
 <?php
 get_sidebar();

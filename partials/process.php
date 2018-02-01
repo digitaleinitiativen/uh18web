@@ -4,9 +4,24 @@
 
     $left = $layout['left'] ?? '';
     $right = $layout['right'] ?? '';
+
+    $style = $layout['style'] ?? '';
+    $stylecolor = '';
+
+    switch ($style) {
+        case 'gelb':
+            $stylecolor = 'section--bg  clip';
+            break;
+        case 'blau':
+            $stylecolor = 'section--bg2  clip';
+            break;
+        default:
+            $stylecolor = '';
+            break;
+    }
 ?>
 
-<div class="section--bg clip">
+<div class="<?php echo $stylecolor; ?>">
     <section class="section  lc-2">
         <h2 class="section__title">
             <?php echo $title; ?>

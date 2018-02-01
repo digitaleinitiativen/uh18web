@@ -9,8 +9,12 @@
         $meta = get_all_custom_field_meta( get_the_ID(), $config );
     }
 
+    $image = get_the_post_thumbnail( get_the_ID(), 'original', ["class" => "img-cover"] ?? '');
+
     $imageId = $meta['image'] ?? '';
-    $image = $imageId ? wp_get_attachment_image( $imageId, 'hd', false, ["class" => "img-cover"] ) : '';
+    if ( !empty($imageId) ) {
+        $image = $imageId ? wp_get_attachment_image( $imageId, 'hd', false, ["class" => "img-cover"] ) : '';
+    }
 
     $title = $meta['title'] ?? '';
     $date = $meta['date'] ?? '';
